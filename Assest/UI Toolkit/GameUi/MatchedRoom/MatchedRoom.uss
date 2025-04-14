@@ -1,0 +1,314 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(32, 32, 32);
+    padding: 20px;
+}
+
+.header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(45, 45, 45);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.room-info {
+    flex-direction: row;
+    align-items: center;
+}
+
+.info-label {
+    color: rgb(200, 200, 200);
+    margin-right: 10px;
+}
+
+.room-name {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.player-count {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+}
+
+.main-content {
+    flex-direction: row;
+    height: 75%;
+    margin-bottom: 20px;
+}
+
+.left-panel {
+    width: 40%;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.players-container {
+    background-color: rgb(45, 45, 45);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    flex-grow: 0;
+}
+
+.map-selection-container {
+    background-color: rgb(45, 45, 45);
+    border-radius: 10px;
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-selector {
+    background-color: rgb(64, 64, 64);
+    border-width: 1px;
+    border-color: rgb(100, 100, 100);
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 15px;
+}
+
+.selected-map-info {
+    color: rgb(158, 158, 158);
+    -unity-font-style: italic;
+    margin-bottom: 15px;
+}
+
+.map-preview {
+    flex-grow: 1;
+    background-color: rgb(51, 51, 51);
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-preview-title {
+    color: rgb(200, 200, 200);
+    -unity-font-style: bold;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.map-preview-image {
+    background-color: rgb(40, 40, 40);
+    flex-grow: 1;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-description {
+    color: rgb(200, 200, 200);
+    font-size: 12px;
+    white-space: normal;
+    -unity-text-align: upper-left;
+}
+
+.chat-container {
+    flex-grow: 1;
+    background-color: rgb(45, 45, 45);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.section-title {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.players-list {
+    flex-grow: 1;
+}
+
+.player-item {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(51, 51, 51);
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.player-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(76, 175, 80);
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.player-icon Label {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+}
+
+.player-icon.empty {
+    background-color: rgb(158, 158, 158);
+}
+
+.player-name {
+    flex-grow: 1;
+    color: rgb(255, 255, 255);
+}
+
+.player-name.empty {
+    color: rgb(158, 158, 158);
+    -unity-font-style: italic;
+}
+
+.player-status {
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.player-status.host {
+    background-color: rgb(255, 193, 7);
+    color: rgb(0, 0, 0);
+}
+
+.player-status.ready {
+    background-color: rgb(76, 175, 80);
+    color: rgb(255, 255, 255);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    background-color: rgb(51, 51, 51);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.chat-message {
+    color: rgb(255, 255, 255);
+    margin: 5px 0;
+}
+
+.system-message {
+    color: rgb(158, 158, 158);
+    -unity-font-style: italic;
+}
+
+.chat-input-container {
+    flex-direction: row;
+}
+
+.chat-input {
+    flex-grow: 1;
+    height: 32px;
+    background-color: rgb(64, 64, 64);
+    border-width: 1px;
+    border-color: rgb(100, 100, 100);
+    border-radius: 3px;
+    padding: 5px;
+    color: rgb(255, 255, 255);
+    margin-right: 10px;
+}
+
+.footer {
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+}
+
+.button {
+    height: 40px;
+    border-radius: 5px;
+    border-width: 0;
+    -unity-font-style: bold;
+    padding: 0 20px;
+    margin: 0 10px;
+}
+
+.exit-button {
+    background-color: rgb(244, 67, 54);
+    color: rgb(255, 255, 255);
+}
+
+.exit-button:hover {
+    background-color: rgb(224, 47, 34);
+}
+
+.ready-button {
+    background-color: rgb(76, 175, 80);
+    color: rgb(255, 255, 255);
+    width: 150px;
+}
+
+.ready-button:hover {
+    background-color: rgb(56, 155, 60);
+}
+
+.ready-button.not-ready {
+    background-color: rgb(158, 158, 158);
+}
+
+.start-button {
+    background-color: rgb(33, 150, 243);
+    color: rgb(255, 255, 255);
+    width: 150px;
+}
+
+.start-button:hover {
+    background-color: rgb(13, 130, 223);
+}
+
+.send-button {
+    background-color: rgb(33, 150, 243);
+    color: rgb(255, 255, 255);
+}
+
+.send-button:hover {
+    background-color: rgb(13, 130, 223);
+}
+
+.button:active {
+    scale: 0.95;
+}
+
+TextField > TextInput {
+    background-color: transparent;
+    border-width: 0;
+    padding: 0;
+}
+
+.unity-dropdown__container {
+    background-color: rgb(64, 64, 64);
+}
+
+.unity-dropdown__item {
+    background-color: rgb(64, 64, 64);
+    color: rgb(255, 255, 255);
+}
+
+.unity-dropdown__item:hover {
+    background-color: rgb(76, 76, 76);
+}
+
+.unity-dropdown__label {
+    color: rgb(255, 255, 255);
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.enabled {
+    opacity: 1;
+}

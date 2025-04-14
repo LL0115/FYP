@@ -1,0 +1,73 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/GameUi/MatchedRoom/MatchedRoom.uss?fileID=7433441132597879392&amp;guid=c9209b8b3b86b1940918c54b0cfd7ea8&amp;type=3#MatchedRoom" />
+    <ui:VisualElement name="container" class="container">
+        <ui:VisualElement name="header" class="header">
+            <ui:VisualElement class="room-info">
+                <ui:Label text="Room:" class="info-label" />
+                <ui:Label name="room-name" text="Room Name" class="room-name" />
+                <ui:Label text="Players:" class="info-label" />
+                <ui:Label name="player-count" text="1/4" class="player-count" />
+            </ui:VisualElement>
+            <ui:Button name="exit-button" text="Exit Room" class="button exit-button" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="main-content" class="main-content">
+            <ui:VisualElement name="left-panel" class="left-panel">
+                <ui:VisualElement name="players-container" class="players-container">
+                    <ui:Label text="Players in Room" class="section-title" />
+                    <ui:ScrollView name="players-list" class="players-list">
+                        <!-- Player Item Template -->
+                        <ui:VisualElement class="player-item">
+                            <ui:VisualElement class="player-icon">
+                                <ui:Label text="P1" />
+                            </ui:VisualElement>
+                            <ui:Label text="Player Name" class="player-name" />
+                            <ui:Label text="Host" class="player-status host" />
+                            <ui:Label text="Ready" class="player-status ready" />
+                        </ui:VisualElement>
+
+                        <!-- Empty Slot Template -->
+                        <ui:VisualElement class="player-item empty-slot">
+                            <ui:VisualElement class="player-icon empty">
+                                <ui:Label text="?" />
+                            </ui:VisualElement>
+                            <ui:Label text="Waiting for player..." class="player-name empty" />
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                </ui:VisualElement>
+                
+                <!-- New Map Selection Container -->
+                <ui:VisualElement name="map-selection-container" class="map-selection-container">
+                    <ui:Label text="Game Map" class="section-title" />
+                    <ui:DropdownField name="map-selector" class="map-selector" />
+                    <ui:Label name="selected-map-info" text="Waiting for host to select a map..." class="selected-map-info" style="display: none;" />
+                    
+                    <!-- Map Preview Area -->
+                    <ui:VisualElement name="map-preview" class="map-preview">
+                        <ui:Label name="map-preview-title" text="Map Preview" class="map-preview-title" />
+                        <ui:VisualElement name="map-preview-image" class="map-preview-image">
+                            <!-- Preview image will be set dynamically -->
+                        </ui:VisualElement>
+                        <ui:Label name="map-description" text="Select a map to see details" class="map-description" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="chat-container" class="chat-container">
+                <ui:Label text="Room Chat" class="section-title" />
+                <ui:ScrollView name="chat-messages" class="chat-messages">
+                    <ui:Label text="Welcome to the room!" class="chat-message system-message" />
+                </ui:ScrollView>
+                <ui:VisualElement class="chat-input-container">
+                    <ui:TextField name="chat-input" class="chat-input" />
+                    <ui:Button name="send-button" text="Send" class="button send-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="footer" class="footer">
+            <ui:Button name="ready-button" class="button ready-button" text="Ready" />
+            <ui:Button name="start-button" class="button start-button" text="Start Game" style="display: none;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

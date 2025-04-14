@@ -1,0 +1,95 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/GameUi/MainGameUI/MainGameUIStyle.uss?fileID=7433441132597879392&amp;guid=60bae6b781d4f82468db73d5d0c000c5&amp;type=3#MainGameUIStyle" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; flex-direction: row; background-image: none; background-color: rgba(240, 75, 75, 0);">
+        <ui:Label tabindex="-1" text="Money: 5000" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Money" class="header" />
+        <ui:Label tabindex="-1" text="Lives: 123&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Lives" class="header" />
+        <ui:Label tabindex="-1" text="Wave: 123" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Wave" class="header" style="width: 650px; height: 51px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="SettingUI" style="flex-grow: 1; flex-direction: row; width: 600px; height: 683px; position: absolute; left: 5px; padding-top: 0; top: 426px; display: flex; visibility: visible;">
+        <ui:Button text="Shop" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ShopButton" class="settingbutton" style="justify-content: flex-start; -unity-text-align: middle-center; align-items: auto; align-self: auto; white-space: nowrap; text-overflow: clip; bottom: auto; margin-top: 2px; margin-right: 4px; flex-direction: row; background-image: url(&quot;project://database/Assets/Dark%20UI/Free/Shop.png?fileID=21300000&amp;guid=18faf426d460ece49970252ef5e8a56d&amp;type=3#Shop&quot;);" />
+        <ui:Button text="Door Control" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DoorButton" class="settingbutton" style="align-self: flex-start; margin-top: 2px; width: 100px; height: 100px; background-image: url(&quot;project://database/Assets/Dark%20UI/Free/Info.png?fileID=21300000&amp;guid=c0d66557e6e886446b2af17220906a63&amp;type=3#Info&quot;);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="SettingsPanel" style="display: none; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); align-items: center; justify-content: center;">
+        <ui:VisualElement name="SettingsContainer" style="width: 500px; height: 600px; background-color: rgb(61, 61, 61); border-radius: 10px; padding: 20px;">
+            <ui:Label text="Settings" class="header" style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-align: center; margin-bottom: 20px;" />
+            <ui:VisualElement name="GameControls" style="margin-bottom: 30px;">
+                <ui:Button text="Resume Game" name="ResumeButton" class="button" style="width: 80%; height: 50px; font-size: 24px; background-color: rgb(76, 175, 80); border-radius: 5px; margin: 10px auto;" />
+                <ui:Button text="Quit to Main Menu" name="QuitToMenuButton" class="button" style="width: 80%; height: 50px; font-size: 24px; background-color: rgb(255, 69, 69); border-radius: 5px; margin: 10px auto;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SoundSettings" style="margin: 20px;">
+                <ui:Label text="Sound Settings" style="font-size: 24px; color: rgb(255, 255, 255); margin-bottom: 10px;" />
+                <ui:SliderInt name="MasterVolumeSlider" label="Master Volume" value="100" high-value="100" style="margin: 10px;" />
+                <ui:SliderInt name="MusicVolumeSlider" label="Music Volume" value="100" high-value="100" style="margin: 10px;" />
+                <ui:SliderInt name="SFXVolumeSlider" label="SFX Volume" value="100" high-value="100" style="margin: 10px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="GraphicsSettings" style="margin: 20px;">
+                <ui:Label text="Graphics Settings" style="font-size: 24px; color: rgb(255, 255, 255); margin-bottom: 10px;" />
+                <ui:DropdownField name="QualityDropdown" label="Quality Level" index="0" choices="Low,Medium,High" style="margin: 10px;" />
+                <ui:Toggle name="FullscreenToggle" label="Fullscreen" style="margin: 10px;" />
+            </ui:VisualElement>
+            <ui:Button text="X" name="CloseSettingsButton" class="button" style="position: absolute; right: 10px; top: 10px; width: 30px; height: 30px; background-color: rgb(255, 69, 69);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="ShopUI" style="display: none; position: absolute; width: 800px; height: 800px; background-color: rgba(61, 61, 61, 0.8); align-items: stretch; justify-content: flex-start; align-self: center; top: 200px; opacity: 1; visibility: visible; background-image: none; left: 559px;">
+        <ui:VisualElement name="ShopPanel" style="width: 80%; height: 80%; position: absolute; left: 10%; top: 10%; background-color: rgb(138, 138, 138);">
+            <ui:Label text="Shop" name="TowerShop" class="header" style="font-size: 24px; margin: 10px;" />
+            <ui:ScrollView name="ShopItemsContainer" style="flex-grow: 1; margin: 10px;">
+                <ui:VisualElement name="ItemsGrid" style="flex-direction: row; flex-wrap: wrap; justify-content: space-around;">
+                    <ui:VisualElement class="shop-item" style="width: 150px; height: 200px; margin: 10px; background-color: rgb(60, 60, 60);">
+                        <ui:VisualElement name="ItemImage" style="width: 100px; height: 100px; margin: 10px auto; background-color: rgb(168, 168, 168);" />
+                        <ui:Label text="Item Name" style="margin: 5px; -unity-text-align: middle-center;" />
+                        <ui:Label text="100 Gold" style="margin: 5px; -unity-text-align: middle-center;" />
+                        <ui:Button class="button" style="width: 40%; margin: 5px auto; padding: 5px; background-image: url(&quot;project://database/Assets/Dark%20UI/New%20Icons/White%20Add.png?fileID=21300000&amp;guid=4e3c49dc98f8a444ab28337dac1f094b&amp;type=3#White Add&quot;); height: 50px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:ScrollView>
+            <ui:Button text="X" name="CloseShopButton" class="button" style="position: absolute; right: 10px; top: 10px; width: 30px; height: 30px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="GameOverUI" style="display: none; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); align-items: center; justify-content: center;">
+        <ui:VisualElement name="GameOverPanel" style="width: 600px; height: 400px; background-color: rgb(61, 61, 61); border-radius: 10px; padding: 20px; align-items: center; justify-content: space-around;">
+            <ui:Label text="GAME OVER" name="GameOverTitle" class="header" style="font-size: 48px; color: rgb(255, 0, 0); -unity-font-style: bold; margin-bottom: 20px;" />
+            <ui:VisualElement name="StatsContainer" style="width: 80%; margin: 20px;">
+                <ui:Label text="Waves Survived:" style="font-size: 24px; color: rgb(255, 255, 255); margin: 5px;" />
+                <ui:Label name="WavesSurvived" text="0" style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-align: center; margin: 10px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ButtonsContainer" style="flex-direction: row; justify-content: space-around; width: 100%; margin-top: 20px;">
+                <ui:Button text="Try Again" name="RetryButton" class="button" style="width: 200px; height: 50px; font-size: 24px; background-color: rgb(76, 175, 80); border-radius: 5px;" />
+                <ui:Button text="Main Menu" name="MainMenuButton" class="button" style="width: 200px; height: 50px; font-size: 24px; background-color: rgb(33, 150, 243); border-radius: 5px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="VictoryUI" style="display: none; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); align-items: center; justify-content: center;">
+        <ui:VisualElement name="VictoryPanel" style="width: 600px; height: 400px; background-color: rgb(61, 61, 61); border-radius: 10px; padding: 20px; align-items: center; justify-content: space-around;">
+            <ui:Label text="VICTORY!" name="VictoryTitle" class="header" style="font-size: 48px; color: rgb(255, 215, 0); -unity-font-style: bold; margin-bottom: 20px;" />
+            <ui:VisualElement name="StatsContainer" style="width: 80%; margin: 20px;">
+                <ui:Label text="Waves Completed:" style="font-size: 24px; color: rgb(255, 255, 255); margin: 5px;" />
+                <ui:Label name="WavesCompleted" text="0" style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-align: center; margin: 10px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ButtonsContainer" style="flex-direction: row; justify-content: space-around; width: 100%; margin-top: 20px;">
+                <ui:Button text="Play Again" name="PlayAgainButton" class="button" style="width: 200px; height: 50px; font-size: 24px; background-color: rgb(76, 175, 80); border-radius: 5px;" />
+                <ui:Button text="Main Menu" name="VictoryMainMenuButton" class="button" style="width: 200px; height: 50px; font-size: 24px; background-color: rgb(33, 150, 243); border-radius: 5px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="MultiplayerInfoPanel" style="display: flex; position: absolute; top: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.7); padding: 10px; border-radius: 5px;">
+        <ui:Label name="PlayersAliveLabel" text="Players: 1/1" style="font-size: 18px; color: rgb(255, 255, 255); margin-bottom: 5px;" />
+        <ui:Label name="WinnerLabel" style="font-size: 18px; color: rgb(255, 215, 0); display: none;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="WaitingForPlayersPanel" style="display: none; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); align-items: center; justify-content: center;">
+        <ui:VisualElement style="background-color: rgb(61, 61, 61); border-radius: 10px; padding: 30px; align-items: center;">
+            <ui:Label text="Waiting for other players..." style="font-size: 30px; color: rgb(255, 255, 255); margin-bottom: 20px;" />
+            <ui:VisualElement name="LoadingSpinner" style="width: 50px; height: 50px; background-image: url(&apos;project://database/Assets/Dark%20UI/Free/Loading.png&apos;); rotate: 0; transition: rotate 1s linear;">
+                <ui:VisualElement name="SpinnerAnimation" style="width: 100%; height: 100%;" />
+            </ui:VisualElement>
+            <ui:Label text="The game will start when at least 2 players have joined" style="font-size: 18px; color: rgb(200, 200, 200); margin-top: 20px; max-width: 400px; -unity-text-align: middle-center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PlayerStatusNotifications" style="position: absolute; top: 70px; right: 10px; width: 250px;" />
+    <ui:VisualElement name="TowerUpgradeUI" style="position: absolute; background-color: rgba(0, 0, 0, 0.8); padding: 10px; border-radius: 5px;">
+        <ui:Label name="TowerStats" class="tower-info" />
+        <ui:Label name="UpgradeCost" />
+        <ui:Button name="UpgradeButton" text="UPGRADE" class="upgrade-button" />
+        <ui:Button name="CloseTowerInfoButton" text="Close" />
+    </ui:VisualElement>
+</ui:UXML>

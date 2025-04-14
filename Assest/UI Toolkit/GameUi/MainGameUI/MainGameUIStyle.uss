@@ -1,0 +1,181 @@
+.header {
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    -unity-font-style: bold;
+    -unity-text-align: upper-center;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.button {
+    font-size: 20px;
+    width: 100px;
+    height: 100px;
+    justify-content: flex-start;
+    align-self: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-image: none;
+}
+
+.settingbutton {
+    margin-top: 0;
+    width: 100px;
+    height: 100px;
+    align-self: auto;
+    margin-right: 15px;
+    margin-bottom: 0;
+    margin-left: 15px;
+}
+
+.shop-item {
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.shop-item:hover {
+    scale: 1.05;
+}
+
+.shop-buy-button {
+    width: 80%;
+    margin: 5px auto;
+    padding: 5px;
+    background-color: rgb(0, 120, 215);
+    color: white;
+    border-radius: 5px;
+}
+
+.shop-buy-button:hover {
+    background-color: rgb(0, 90, 185);
+}
+
+.purchase-notification {
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+/* New multiplayer UI styles */
+.player-notification {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+    opacity: 1;
+}
+
+.player-notification-fade {
+    opacity: 0;
+}
+
+.player-notification-death {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.player-notification-join {
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+.player-notification-leave {
+    background-color: rgba(255, 165, 0, 0.5);
+}
+
+@keyframes spinner-rotate {
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+}
+
+#SpinnerAnimation {
+    animation-name: spinner-rotate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.tower-info {
+    font-size: 16px;
+    color: white;
+    margin: 10px;
+    white-space: normal;
+    -unity-text-align: middle-left;
+}
+
+.upgrade-button {
+    background-color: rgb(76, 175, 80);
+    color: white;
+    border-width: 2px;
+    border-color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    -unity-font-style: bold;
+    padding: 10px;
+    margin: 10px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.upgrade-button:hover {
+    background-color: rgb(56, 142, 60);
+    scale: 1.05;
+}
+
+.upgrade-button:active {
+    background-color: rgb(27, 94, 32);
+    scale: 0.95;
+}
+
+.upgrade-button:disabled {
+    background-color: rgb(158, 158, 158);
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#TowerUpgradeUI {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.3);
+    padding: 15px;
+    min-width: 250px;
+}
+
+#TowerUpgradeUI.show {
+    opacity: 1;
+    translate: 0 -50%;
+}
+
+#TowerUpgradeUI.hide {
+    opacity: 0;
+    translate: 100px -50%;
+}
+
+.tower-selected {
+    outline: 2px solid rgb(0, 255, 0);
+    outline-offset: 2px;
+}
+
+.purchase-notification {
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s;
+    opacity: 1;
+}
+
+.button.debuff {
+    background-color: rgb(255, 69, 69);
+}
+
+.shop-item:hover {
+    transform: scale(1.05);
+    transition: all 0.2s;
+}

@@ -1,0 +1,212 @@
+.container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: rgb(32, 32, 32);
+    align-items: center;
+}
+
+.title {
+    font-size: 32px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    margin-bottom: 30px;
+}
+
+.main-content {
+    flex-direction: row;
+    width: 100%;
+    height: 80%;
+    max-width: 1200px;
+}
+
+.left-panel {
+    width: 35%;
+    padding: 20px;
+    background-color: rgb(45, 45, 45);
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.right-panel {
+    flex-grow: 1;
+    background-color: rgb(45, 45, 45);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.panel-title {
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+}
+
+.input-container {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.input-container Label {
+    color: rgb(255, 255, 255);
+    margin-bottom: 5px;
+}
+
+.input-field {
+    height: 30px;
+    background-color: rgb(64, 64, 64);
+    border-width: 1px;
+    border-color: rgb(100, 100, 100);
+    border-radius: 3px;
+    padding: 5px;
+    color: rgb(255, 255, 255);
+}
+
+.button-container {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.button {
+    height: 40px;
+    margin: 10px;
+    border-radius: 5px;
+    border-width: 0;
+    -unity-font-style: bold;
+    padding: 0 20px;
+}
+
+.create-button {
+    background-color: rgb(76, 175, 80);
+    color: rgb(255, 255, 255);
+    width: 80%;
+}
+
+.create-button:hover {
+    background-color: rgb(56, 155, 60);
+}
+
+.join-button {
+    background-color: rgb(33, 150, 243);
+    color: rgb(255, 255, 255);
+    width: 80px;
+}
+
+.join-button:hover {
+    background-color: rgb(13, 130, 223);
+}
+
+.refresh-button {
+    background-color: rgb(158, 158, 158);
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+    align-self: center;
+}
+
+.refresh-button:hover {
+    background-color: rgb(138, 138, 138);
+}
+
+.button:active {
+    scale: 0.95;
+}
+
+.room-list-header {
+    flex-direction: row;
+    background-color: rgb(64, 64, 64);
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+}
+
+.header-item {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+}
+
+.room-name-header {
+    width: 40%;
+}
+
+.players-header {
+    width: 20%;
+}
+
+.status-header {
+    width: 20%;
+}
+
+.action-header {
+    width: 20%;
+}
+
+.room-list {
+    background-color: rgb(51, 51, 51);
+    border-radius: 0 0 5px 5px;
+    flex-grow: 1;
+}
+
+.room-item {
+    flex-direction: row;
+    padding: 10px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(80, 80, 80);
+    align-items: center;
+}
+
+.room-item:hover {
+    background-color: rgb(60, 60, 60);
+}
+
+.room-name {
+    color: rgb(255, 255, 255);
+    width: 40%;
+}
+
+.players-count {
+    color: rgb(200, 200, 200);
+    width: 20%;
+}
+
+.room-status {
+    color: rgb(200, 200, 200);
+    width: 20%;
+}
+
+.header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 30px;
+}
+
+.return-button {
+    background-color: rgb(244, 67, 54);
+    color: rgb(255, 255, 255);
+}
+
+.return-button:hover {
+    background-color: rgb(224, 47, 34);
+}
+
+.input-field {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-width: 1px;
+    border-color: rgb(100, 100, 100);
+    padding: 5px;
+    margin: 5px;
+    color: rgb(255, 255, 255);
+}
+
+.input-field:focus {
+    border-color: rgb(150, 150, 150);
+}
+
+TextField > TextInput {
+    background-color: transparent;
+    border-width: 0;
+    padding: 0;
+}

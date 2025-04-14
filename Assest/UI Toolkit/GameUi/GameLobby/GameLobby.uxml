@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/GameUi/GameLobby/GameLobby.uss?fileID=7433441132597879392&amp;guid=ef42a4bdea8c20a44aeaf0dc3b734d7b&amp;type=3#GameLobby" />
+    <ui:VisualElement name="main-container" class="full-screen">
+        <ui:Label text="Game Title" class="title" />
+        <ui:VisualElement name="button-container">
+            <ui:Button name="start-game-button" text="Start Game" class="menu-button" />
+            <ui:Button name="settings-button" text="Settings" class="menu-button" />
+            <ui:Button name="credits-button" text="Credits" class="menu-button" />
+            <ui:Button name="quit-button" text="Quit Game" class="menu-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="settings-panel" class="panel">
+            <ui:Label text="Settings" class="panel-title" />
+            <ui:VisualElement class="slider-container">
+                <ui:Label text="Music Volume" />
+                <ui:Slider name="music-volume-slider" min-value="0" max-value="1" value="0.5" />
+            </ui:VisualElement>
+            <ui:VisualElement class="slider-container">
+                <ui:Label text="SFX Volume" />
+                <ui:Slider name="sfx-volume-slider" min-value="0" max-value="1" value="0.5" />
+            </ui:VisualElement>
+            <ui:Button name="close-settings-button" text="Close" class="close-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
