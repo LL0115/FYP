@@ -1,0 +1,56 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/GameUi/MatchingRoom/MatchingRoom.uss?fileID=7433441132597879392&amp;guid=ea299f441b081c14184413b3d9c0702d&amp;type=3#MatchingRoom" />
+    <ui:VisualElement name="container" class="container">
+        <ui:Label text="Room Matching" class="title" />
+
+        <ui:VisualElement class="header">
+            <ui:Label text="Room Matching" class="title" />
+            <ui:Button text="Return to Menu" name="return-button" class="button return-button" />
+        </ui:VisualElement>
+        
+        <ui:VisualElement class="main-content">
+            <!-- Left Panel - Room Creation -->
+            <ui:VisualElement class="left-panel">
+                <ui:Label text="Create or Join Room" class="panel-title" />
+                
+                <ui:VisualElement class="input-container">
+                    <ui:Label text="Player Name" />
+                    <ui:TextField name="player-name-input" class="input-field" picking-mode="Ignore" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="input-container">
+                    <ui:Label text="Room Name" />
+                    <ui:TextField name="room-name-input" class="input-field" picking-mode="Ignore" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="button-container">
+                    <ui:Button text="Create Room" name="create-room-button" class="button create-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Right Panel - Room List -->
+            <ui:VisualElement class="right-panel">
+                <ui:Label text="Available Rooms" class="panel-title" />
+                
+                <ui:VisualElement class="room-list-header">
+                    <ui:Label text="Room Name" class="header-item room-name-header" />
+                    <ui:Label text="Players" class="header-item players-header" />
+                    <ui:Label text="Status" class="header-item status-header" />
+                    <ui:Label text="" class="header-item action-header" />
+                </ui:VisualElement>
+
+                <ui:ScrollView name="room-list" class="room-list">
+                    <!-- Room Item Template (will be populated from code) -->
+                    <ui:VisualElement class="room-item">
+                        <ui:Label text="Example Room" class="room-name" />
+                        <ui:Label text="1/4" class="players-count" />
+                        <ui:Label text="Waiting" class="room-status" />
+                        <ui:Button text="Join" class="button join-button" />
+                    </ui:VisualElement>
+                </ui:ScrollView>
+
+                <ui:Button text="Refresh List" name="refresh-button" class="button refresh-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

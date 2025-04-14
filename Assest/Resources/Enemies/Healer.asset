@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3db8eab0563e964db664ace17541651, type: 3}
+  m_Name: Healer
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 1977855596601166027, guid: 41c87cb2f25fc944dbac1474d89941cb, type: 3}
+  EnemyID: 4
+  Type: 3
