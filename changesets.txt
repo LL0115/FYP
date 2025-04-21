@@ -1,0 +1,80 @@
+5 weihanglui@gmail.com 20/10/2024 14:33:51 Root dir
+12 weihanglui@gmail.com 20/10/2024 14:36:53 Add packages and project settings to Unity Version Control.
+17 weihanglui@gmail.com 20/10/2024 16:39:23 testing
+
+19 jerry.ngai223@gmail.com 20/10/2024 21:37:00 Add cube
+23 weihanglui@gmail.com 20/10/2024 21:40:48 Add new
+1783 weihanglui@gmail.com 26/10/2024 20:12:08 Update a part of gun shotting pack
+1784 jerry.ngai223@gmail.com 28/10/2024 21:32:24 Make the td game basic with enemy moving and tower placing
+1785 weihanglui@gmail.com 28/10/2024 23:10:58 Add Gun System , tmr add the aiming Point =_=
+1786 jerry.ngai223@gmail.com 29/10/2024 1:01:25 Add turrent targetting
+1787 weihanglui@gmail.com 29/10/2024 14:21:06 Add crosshair for the gun shooting system
+1788 weihanglui@gmail.com 29/10/2024 14:39:56 add source of the possible use of character 
+1799 weihanglui@gmail.com 30/10/2024 21:52:50 Add Enemy with Hp and distroable
+5686 jerry.ngai223@gmail.com 31/10/2024 1:15:16 Add missile tower and flame tower
+5687 weihanglui@gmail.com 31/10/2024 15:36:19 Add player with Hp and enemy get close and attack and play hp decrease
+5815 jerry.ngai223@gmail.com 19/11/2024 16:10:19 Update the data of the turret
+5816 jerry.ngai223@gmail.com 20/11/2024 23:16:19 New UI framework and lives, money system
+5817 weihanglui@gmail.com 20/11/2024 23:19:03 add HPbar
+7803 weihanglui@gmail.com 24/11/2024 13:26:05 add HP Bar
+7804 jerry.ngai223@gmail.com 24/11/2024 15:41:39 Unknown change
+7805 weihanglui@gmail.com 24/11/2024 15:53:36 fix
+7810 weihanglui@gmail.com 24/11/2024 16:20:36 final fix 
+7813 weihanglui@gmail.com 24/11/2024 16:28:29 hot fix
+7817 jerry.ngai223@gmail.com 24/11/2024 16:44:11 wave system again
+7818 jerry.ngai223@gmail.com 24/11/2024 16:58:58 hot fix level
+7819 jerry.ngai223@gmail.com 24/11/2024 17:48:17 Fix gamaging and money bug
+7820 weihanglui@gmail.com 24/11/2024 19:18:27 add curser fix 2.0
+7821 weihanglui@gmail.com 24/11/2024 20:07:55 gun shootin enemy
+7828 jerry.ngai223@gmail.com 24/11/2024 20:11:38 Add more ui for game lobby
+7829 jerry.ngai223@gmail.com 24/11/2024 22:38:33 Rearrange the code structure
+7830 weihanglui@gmail.com 24/11/2024 23:15:21 save scence 1
+7833 jerry.ngai223@gmail.com 25/11/2024 1:16:55 Basic setting of start ui to the game
+7838 jerry.ngai223@gmail.com 26/11/2024 0:36:30 A huge huge restructure of the whole game with victory and gameover UI, maybe not stable
+8200 jerry.ngai223@gmail.com 2/12/2024 17:44:31 Game setting can restart game now
+8201 jerry.ngai223@gmail.com 2/12/2024 18:34:19 Remake the restart game again
+8202 jerry.ngai223@gmail.com 2/12/2024 18:34:33 update level
+8203 weihanglui@gmail.com 2/12/2024 23:41:27 fix retry 
+9108 weihanglui@gmail.com 4/2/2025 17:58:19 Photon 
+11347 weihanglui@gmail.com 16/2/2025 16:08:33 Lobby
+11348 weihanglui@gmail.com 16/2/2025 17:38:52 addroom， room linked with lobby ， havent link room to maingame
+11349 jerry.ngai223@gmail.com 19/2/2025 1:11:06 New update of lobby and room ui, Added host function, ready function, room chat function, ui event, start game check, auto find host, etc...
+11637 jerry.ngai223@gmail.com 25/3/2025 22:03:09 Added Map selection
+11638 jerry.ngai223@gmail.com 25/3/2025 23:30:00 Update of Map selection
+11640 weihanglui@gmail.com 26/3/2025 21:39:58 Player can get in the game
+11641 jerry.ngai223@gmail.com 26/3/2025 22:40:25 Draft scene
+11644 weihanglui@gmail.com 27/3/2025 21:45:01 player are able to shoot in game , but about the damage still doing
+14619 jerry.ngai223@gmail.com 31/3/2025 22:04:02 Very basic, can spawn wave in multiplayer
+14620 jerry.ngai223@gmail.com 31/3/2025 23:25:19 Game Basic finish
+14621 weihanglui@gmail.com 1/4/2025 21:24:51 all the damage did normally under multiplayer mode
+14624 jerry.ngai223@gmail.com 2/4/2025 23:40:49 Basic tower can put can work but still have many bug
+14625 jerry.ngai223@gmail.com 3/4/2025 0:10:37 Small update
+14626 jerry.ngai223@gmail.com 3/4/2025 0:44:11 Fix money bug
+14627 weihanglui@gmail.com 3/4/2025 20:42:59 will no reload lobby again 
+14628 weihanglui@gmail.com 3/4/2025 20:46:02 little change 
+14629 weihanglui@gmail.com 3/4/2025 21:30:49 retry and mainmenu button finish 
+14634 jerry.ngai223@gmail.com 5/4/2025 23:21:29 Small update for tower
+14635 jerry.ngai223@gmail.com 6/4/2025 0:44:18 Fking fixed both can see
+14636 weihanglui@gmail.com 7/4/2025 16:41:42 add HPbar to tower and make them distroable
+14637 weihanglui@gmail.com 8/4/2025 17:37:15 with door open and close function (adding deduct money when activate it)  + change the texture of the map
+14638 weihanglui@gmail.com 8/4/2025 17:45:46 add texture
+
+14639 weihanglui@gmail.com 8/4/2025 18:23:32 door added
+14640 weihanglui@gmail.com 8/4/2025 18:42:10 update texture
+14641 weihanglui@gmail.com 9/4/2025 22:02:22 fix can only do damage for own enemy
+14642 weihanglui@gmail.com 9/4/2025 22:16:27 fix shooting direction
+14643 weihanglui@gmail.com 10/4/2025 17:20:31 Fix the gold bugs
+14644 jerry.ngai223@gmail.com 11/4/2025 22:34:54 i dont know what is it
+16576 jerry.ngai223@gmail.com 12/4/2025 23:52:49 upgrade of the enemy
+16577 jerry.ngai223@gmail.com 13/4/2025 1:51:00 basic upgrade system
+16578 jerry.ngai223@gmail.com 13/4/2025 15:43:09 update og upgrade
+16579 jerry.ngai223@gmail.com 13/4/2025 16:36:28 small update of gamemanager
+16580 jerry.ngai223@gmail.com 13/4/2025 23:34:54 Basic buy effect for the game
+16581 weihanglui@gmail.com 14/4/2025 11:02:12 small update
+16582 weihanglui@gmail.com 14/4/2025 17:00:01 test 
+16584 jerry.ngai223@gmail.com 18/4/2025 16:50:17 Real speed debuff
+16585 jerry.ngai223@gmail.com 18/4/2025 16:50:30 ????
+16587 weihanglui@gmail.com 20/4/2025 17:03:55 update Hp fix
+16588 jerry.ngai223@gmail.com 20/4/2025 18:49:20 Spawn in the same time
+16589 jerry.ngai223@gmail.com 20/4/2025 18:56:11 Prefab update
+16590 jerry.ngai223@gmail.com 20/4/2025 19:18:17 wrong variable fix
