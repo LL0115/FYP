@@ -12,9 +12,6 @@ public class HPBar : MonoBehaviour
     private bool isDestroyed = false;
     private bool rewardGiven = false; // Track if reward has been given already
 
-    // Only update health display every 0.1 sec For performance
-    [SerializeField] private float updateInterval = 0.1f;
-    private float updateTimer = 0f;
 
     public void Initialize(DamagableItem damagableTarget)
     {
@@ -26,7 +23,7 @@ public class HPBar : MonoBehaviour
             fillRectTransform = fillImage.GetComponent<RectTransform>();
             fillRectTransform.pivot = new Vector2(0, 0.5f);
         }
-       
+
         target.DamageDealt += OnDamageDealt;
         if (target is Enemy enemy)
         {
@@ -63,44 +60,35 @@ public class HPBar : MonoBehaviour
         // Rotate the health bar to face the camera
         if (mainCamera != null && !isDestroyed)
         {
-            transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward,mainCamera.transform.rotation * Vector3.up);
+            transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
         }
 
-        //Always Update health bar every 0.1 sec
-        updateTimer += Time.deltaTime;
-
-        if (updateTimer >= updateInterval)
+        // Check if we have a valid target and it's not destroyed
+        if (!isDestroyed && target != null)
         {
-            updateTimer = 0f;
+            UpdateHealthBar(target.CurrentHP, target.MaxHP);
 
-            // Check if we have a valid target and it's not destroyed
-            if (!isDestroyed && target != null)
+            if (target is Enemy enemy)
             {
-                UpdateHealthBar(target.CurrentHP, target.MaxHP);
-
-                if (target is Enemy enemy)
+                int currentHP = enemy.CurrentHP;
+                float rawHealth = enemy.Health;
+                if (Mathf.Abs(currentHP - rawHealth) > 0.5f)
                 {
-                    // Check for health sync issues
-                    int currentHP = enemy.CurrentHP;
-                    float rawHealth = enemy.Health;
-                    if (Mathf.Abs(currentHP - rawHealth) > 0.5f) // Make not too harsh on checking 
-                    {
-                        Debug.Log($"Health sync issue detected: CurrentHP={currentHP}, Raw Health={rawHealth}");
-                        UpdateHealthBar(Mathf.RoundToInt(rawHealth), enemy.MaxHP);
-                    }
+                    Debug.Log($"Health sync issue detected: CurrentHP={currentHP}, Raw Health={rawHealth}");
+                    UpdateHealthBar(Mathf.RoundToInt(rawHealth), enemy.MaxHP);
+                }
 
-                    // Check if enemy is dead but reward hasn't been given
-                    if (currentHP <= 0 && !rewardGiven)
-                    {
-                        GiveRewardToPlayer(enemy);
-                    }
+                // Check if enemy is dead but reward hasn't been given
+                if (currentHP <= 0 && !rewardGiven)
+                {
+                    GiveRewardToPlayer(enemy);
                 }
             }
         }
     }
     public void UpdateHealthBar(int currentHealth, int maxHealth)
     {
-        if (isDestroyed || fillRectTransform == null) 
+        if (isDestroyed || fillRectTransform == null)
             return;
 
         // Make sure that maxHealth is not zero that will make error
@@ -112,9 +100,12 @@ public class HPBar : MonoBehaviour
 
         float healthPercentage = Mathf.Clamp01((float)currentHealth / maxHealth);
 
-        // Update the scale of the fill image
         Vector3 newScale = new Vector3(healthPercentage, 1, 1);
-        fillRectTransform.localScale = newScale;
+        // Only update if the scale actually changed to avoid unnecessary UI redraws
+        if (fillRectTransform.localScale != newScale)
+        {
+             fillRectTransform.localScale = newScale;
+        }
 
         // Update the color of the fill image based on health percentage
         if (healthPercentage <= 0)
@@ -133,17 +124,17 @@ public class HPBar : MonoBehaviour
             // Get the player stat for this enemy path
             PlayerStat playerStat = GameloopManager.GetPlayerStatForPath(enemy.PlayerPathIndex);
 
-       
+
             if (playerStat == null)
             {
                 Debug.LogWarning($"Could not find PlayerStat for path {enemy.PlayerPathIndex}, attempting to use fallback");
 
-                // find PlayerStat 
+                // find PlayerStat
                 PlayerStat[] allStats = GameObject.FindObjectsOfType<PlayerStat>();
 
                 if (allStats != null && allStats.Length > 0)
                 {
-                    // Use the first one 
+                    // Use the first one
                     playerStat = allStats[0];
                     Debug.Log($"Using fallback PlayerStat: {playerStat.gameObject.name}");
                 }
@@ -200,7 +191,7 @@ public class HPBar : MonoBehaviour
         }
 
         isDestroyed = true;
-     
+
         Destroy(gameObject);
     }
 
