@@ -9,9 +9,21 @@ public class Enemy : MonoBehaviourPun, DamagableItem
     public float Health;
     public float DamageResistance = 1f;
     public int DamageToBase = 1; 
-    public float Speed;
-    public int ID;
+    // Change Speed to use base/current model
+    [SerializeField] private float baseSpeed = 2f;
+    [SerializeField] private float speedMultiplier = 1f;
     
+    // Speed property to calculate final speed
+    public float Speed 
+    {
+        get { return baseSpeed * speedMultiplier; }
+        set { baseSpeed = value; }
+    }
+    // Add debuff tracking
+    private bool hasSpeedDebuff = false;
+    
+    // Add debuff tracking
+    public int ID;
     public HealthBarPrefab HPBarPrefab;
     public HPBar HPBar;
     public event System.Action<int> DamageDealt;
@@ -33,6 +45,11 @@ public class Enemy : MonoBehaviourPun, DamagableItem
     
     // Track if we've been properly initialized from network data
     private bool initializedFromNetwork = false;
+
+    // For speed debuff visual effects
+    private TrailRenderer speedDebuffTrail;
+    private Color speedDebuffOriginalColor;
+    private bool hasStoredOriginalColor = false;
 
     protected virtual void Awake()
     {
@@ -86,16 +103,27 @@ public class Enemy : MonoBehaviourPun, DamagableItem
         // This method is called automatically when the object is network instantiated
         if (photonView.InstantiationData != null && photonView.InstantiationData.Length > 0)
         {
-            try {
+            try
+            {
                 // The first parameter is the path index
                 PlayerPathIndex = (int)photonView.InstantiationData[0];
                 initializedFromNetwork = true;
                 Debug.Log($"Enemy instantiated with path index {PlayerPathIndex} from network data");
             }
-            catch (System.Exception e) {
+            catch (System.Exception e)
+            {
                 Debug.LogError($"Error processing instantiation data: {e.Message}");
+                PlayerPathIndex = 0; // Default to 0 if failed
             }
         }
+        else
+        {
+            Debug.LogWarning("No instantiation data for enemy, setting default path index 0");
+            PlayerPathIndex = 0; // Default value when no data is provided
+        }
+
+        // Register the enemy with EntitySummoner for tracking on all clients
+        Entitysummoner.RegisterNetworkSpawnedEnemy(this);
     }
 
     public virtual void Init()
@@ -185,6 +213,7 @@ public class Enemy : MonoBehaviourPun, DamagableItem
         return nodes;
     }
     
+    // Reset should also reset speed
     public virtual void ResetEnemy()
     {
         try
@@ -193,6 +222,11 @@ public class Enemy : MonoBehaviourPun, DamagableItem
             
             Health = MaxHealth;
             NodeIndex = 1; // Start at first node
+            
+            // Reset speed
+            speedMultiplier = 1.0f;
+            hasSpeedDebuff = false;
+            RemoveSpeedDebuffVisual();
             
             // Only master client sets position
             if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
@@ -257,6 +291,25 @@ public class Enemy : MonoBehaviourPun, DamagableItem
         catch (System.Exception e)
         {
             Debug.LogError($"Error in Enemy.Tick: {e.Message}");
+        }
+    }
+
+    // Add gizmo visualization for debugging
+    private void OnDrawGizmos()
+    {
+        // Only show in debug build
+        if (!Debug.isDebugBuild) return;
+        
+        // Draw speed indicator above enemy
+        if (hasSpeedDebuff)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position + Vector3.up * 1.5f, 0.5f);
+            
+            // Draw text in scene view (only visible in editor)
+            #if UNITY_EDITOR
+            UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, $"Speed: {Speed:F1}");
+            #endif
         }
     }
 
@@ -390,11 +443,168 @@ public class Enemy : MonoBehaviourPun, DamagableItem
         }
     }
 
+    // New method to apply speed debuff
+    public void ApplySpeedDebuff(float multiplier, float duration)
+    {
+        // Store the old speed for logging
+        float oldSpeed = Speed;
+        
+        // Apply the multiplier to the current multiplier
+        speedMultiplier *= multiplier;
+        hasSpeedDebuff = true;
+        
+        Debug.Log($"Enemy {gameObject.name} speed debuffed: {oldSpeed} → {Speed} (multiplier: {multiplier}, duration: {duration}s)");
+        
+        // Apply visual effect
+        ApplySpeedDebuffVisual();
+        
+        // If there's a duration, schedule removal
+        if (duration > 0)
+        {
+            // Use Photon RPC to ensure synchronization of debuff removal
+            if (photonView != null && PhotonNetwork.IsConnected)
+            {
+                // We need to cancel any existing removal routines first
+                photonView.RPC("CancelSpeedDebuffRemoval", RpcTarget.All);
+                
+                // Schedule new removal
+                photonView.RPC("ScheduleSpeedDebuffRemoval", RpcTarget.All, multiplier, duration);
+            }
+            else
+            {
+                // Single player - use coroutine directly
+                CancelInvoke("RemoveSpeedDebuff");
+                StartCoroutine(RemoveSpeedDebuffAfterDelay(multiplier, duration));
+            }
+        }
+        
+        // Sync this change to all clients
+        if (photonView != null && PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("SyncSpeedMultiplier", RpcTarget.Others, speedMultiplier);
+        }
+    }
+    
+    [PunRPC]
+    private void SyncSpeedMultiplier(float newMultiplier)
+    {
+        // Update local multiplier
+        speedMultiplier = newMultiplier;
+        
+        // Update visual based on whether we have a debuff
+        if (newMultiplier != 1.0f)
+        {
+            hasSpeedDebuff = true;
+            ApplySpeedDebuffVisual();
+        }
+        else
+        {
+            hasSpeedDebuff = false;
+            RemoveSpeedDebuffVisual();
+        }
+        
+        Debug.Log($"Speed multiplier synced to {speedMultiplier}. New speed: {Speed}");
+    }
+    
+    [PunRPC]
+    private void CancelSpeedDebuffRemoval()
+    {
+        StopAllCoroutines(); // Stop all coroutines - might be too aggressive, adjust if needed
+    }
+    
+    [PunRPC]
+    private void ScheduleSpeedDebuffRemoval(float multiplier, float duration)
+    {
+        StartCoroutine(RemoveSpeedDebuffAfterDelay(multiplier, duration));
+    }
+    
+    private IEnumerator RemoveSpeedDebuffAfterDelay(float appliedMultiplier, float duration)
+    {
+        Debug.Log($"Scheduled speed debuff removal in {duration} seconds");
+        yield return new WaitForSeconds(duration);
+        
+        // Remove this specific multiplier
+        speedMultiplier /= appliedMultiplier;
+        
+        // Check if we need to reset the debuff flag
+        if (Mathf.Approximately(speedMultiplier, 1.0f))
+        {
+            speedMultiplier = 1.0f; // Reset to exactly 1 to avoid floating point issues
+            hasSpeedDebuff = false;
+            RemoveSpeedDebuffVisual();
+        }
+        
+        Debug.Log($"Speed debuff expired. New speed: {Speed}, multiplier: {speedMultiplier}");
+        
+        // Sync the change to other clients
+        if (photonView != null && PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("SyncSpeedMultiplier", RpcTarget.Others, speedMultiplier);
+        }
+    }
+    
+    private void ApplySpeedDebuffVisual()
+    {
+        // Store the original color if we haven't already
+        Renderer renderer = GetComponentInChildren<Renderer>();
+        if (renderer != null && !hasStoredOriginalColor)
+        {
+            speedDebuffOriginalColor = renderer.material.color;
+            hasStoredOriginalColor = true;
+        }
+        
+        // Apply blue tint for increased speed
+        if (renderer != null)
+        {
+            renderer.material.color = new Color(0.0f, 0.5f, 1.0f); // Blue tint
+        }
+        
+        // Add trail renderer for speed effect
+        if (speedDebuffTrail == null)
+        {
+            speedDebuffTrail = gameObject.AddComponent<TrailRenderer>();
+            speedDebuffTrail.material = new Material(Shader.Find("Sprites/Default"));
+            speedDebuffTrail.startWidth = 0.5f;
+            speedDebuffTrail.endWidth = 0.0f;
+            speedDebuffTrail.time = 0.3f;
+            speedDebuffTrail.startColor = new Color(0, 0.5f, 1f, 0.5f); // Blue
+            speedDebuffTrail.endColor = new Color(0, 0.5f, 1f, 0f);
+        }
+        
+        Debug.Log($"Applied speed debuff visual effect to {gameObject.name}");
+    }
+    
+    private void RemoveSpeedDebuffVisual()
+    {
+        // Restore original color
+        Renderer renderer = GetComponentInChildren<Renderer>();
+        if (renderer != null && hasStoredOriginalColor)
+        {
+            renderer.material.color = speedDebuffOriginalColor;
+        }
+        
+        // Remove trail
+        if (speedDebuffTrail != null)
+        {
+            Destroy(speedDebuffTrail);
+            speedDebuffTrail = null;
+        }
+        
+        Debug.Log($"Removed speed debuff visual effect from {gameObject.name}");
+    }
+
     // Add a new RPC to sync health directly
     [PunRPC]
     public void RPC_SyncHealth(float newHealth)
     {
         Health = newHealth;
+        ForceUpdateHealthBar();
+    }
+
+    [PunRPC]
+    public void RPC_SyncMaxHealth(float newMaxHealth)
+    {
+        MaxHealth = newMaxHealth;
         ForceUpdateHealthBar();
     }
 

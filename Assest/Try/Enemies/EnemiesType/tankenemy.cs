@@ -37,13 +37,18 @@ public class TankEnemy : Enemy
         MaxHealth *= 2.5f; // 250% of normal health
         Health = MaxHealth; // Set current health to match
         
-        // Tanks deal more damage to the base
         DamageToBase += 2; // Increase by 2
         
         // Set damage resistance
         DamageResistance = 1.0f - damageResistance;
         
-        // Update health bar to reflect new max health
+        // Sync MaxHealth to other clients in multiplayer
+        if (PhotonNetwork.IsConnected && photonView != null && PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPC_SyncMaxHealth", RpcTarget.Others, MaxHealth);
+        }
+        
+        // Update health bar to reflect correct max health
         if (HPBar != null)
         {
             HPBar.UpdateHealthBar(MaxHP, CurrentHP);

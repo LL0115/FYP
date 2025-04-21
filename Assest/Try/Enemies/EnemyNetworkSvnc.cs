@@ -8,6 +8,9 @@ public class EnemyNetworkSync : MonoBehaviourPun, IPunObservable
     private new PhotonView photonView;
     private Vector3 networkPosition;
     private float networkLerpTime = 0.1f; // Time to lerp to network position
+
+    // Add variables for speed sync
+    private float lastSyncedSpeedMultiplier = 1.0f;
     
     private void Awake()
     {
@@ -46,6 +49,18 @@ public class EnemyNetworkSync : MonoBehaviourPun, IPunObservable
             // Send the current health
             float currentHealth = enemyComponent.GetHealth();
             stream.SendNext(currentHealth);
+            
+            // Send the speed multiplier
+            // Access the private field via reflection if needed
+            float speedMultiplier = (float)typeof(Enemy)
+                .GetField("speedMultiplier", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(enemyComponent);
+                
+            // Alternative approach if the GetField call doesn't work
+            // You could add a public method to Enemy to expose speedMultiplier
+            
+            // Send the speed multiplier
+            stream.SendNext(speedMultiplier);
         }
         else
         {
@@ -74,6 +89,37 @@ public class EnemyNetworkSync : MonoBehaviourPun, IPunObservable
                     // This won't cause additional damage
                     enemyComponent.TakeDamage(0);
                 }
+            }
+            
+            // Receive speed multiplier
+            float receivedSpeedMultiplier = (float)stream.ReceiveNext();
+            
+            // If speed has changed, update it
+            if (!Mathf.Approximately(receivedSpeedMultiplier, lastSyncedSpeedMultiplier))
+            {
+                lastSyncedSpeedMultiplier = receivedSpeedMultiplier;
+                
+                // Call method to update speed (needs to be added to Enemy class)
+                if (receivedSpeedMultiplier != 1.0f)
+                {
+                    // Using our newly added method on Enemy
+                    // This will handle visual updates too
+                    enemyComponent.ApplySpeedDebuff(receivedSpeedMultiplier / lastSyncedSpeedMultiplier, 0);
+                }
+                else
+                {
+                    // Reset speed using reflection to avoid adding yet another method
+                    typeof(Enemy)
+                        .GetField("speedMultiplier", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                        .SetValue(enemyComponent, 1.0f);
+                        
+                    // Call method to remove visuals
+                    typeof(Enemy)
+                        .GetMethod("RemoveSpeedDebuffVisual", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                        .Invoke(enemyComponent, null);
+                }
+                
+                Debug.Log($"Synced enemy speed multiplier to {receivedSpeedMultiplier}");
             }
         }
     }

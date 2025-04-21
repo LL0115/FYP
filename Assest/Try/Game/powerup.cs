@@ -26,24 +26,20 @@ public class PowerUp : MonoBehaviour
     // Static method to apply a power-up through the GameManager
     public static void ApplyPowerUp(PowerUpType type, int targetPlayerPathIndex, float effectValue, float duration)
     {
-        if (PhotonNetwork.IsConnected)
+        Debug.Log($"ApplyPowerUp called: Type={type}, TargetPath={targetPlayerPathIndex}, Value={effectValue}, Duration={duration}");
+        
+        // Find the GameloopManager for RPC
+        GameloopManager gameloopManager = GameloopManager.Instance;
+        
+        if (gameloopManager != null && gameloopManager.photonView != null && PhotonNetwork.IsConnected)
         {
-            // Find GameloopManager to communicate with
-            GameloopManager manager = GameloopManager.Instance;
-            if (manager != null && manager.photonView != null)
-            {
-                // Send RPC through the GameloopManager
-                manager.photonView.RPC("ApplyPowerUpRPC", RpcTarget.All, 
-                    (int)type, targetPlayerPathIndex, effectValue, duration);
-            }
-            else
-            {
-                Debug.LogError("Cannot find GameloopManager with PhotonView to send power-up RPC");
-            }
+            // Send RPC to all clients
+            gameloopManager.photonView.RPC("ApplyPowerUpRPC", RpcTarget.AllBuffered, 
+                (int)type, targetPlayerPathIndex, effectValue, duration);
         }
         else
         {
-            // In single player, directly apply the effect
+            // Apply locally as fallback or in single player
             ApplyPowerUpEffect(type, targetPlayerPathIndex, effectValue, duration);
         }
     }
@@ -51,27 +47,75 @@ public class PowerUp : MonoBehaviour
     // Static method to apply power-up effects
     public static void ApplyPowerUpEffect(PowerUpType type, int targetPlayerPathIndex, float effectValue, float duration)
     {
+        Debug.Log($"Applying power-up effect: {type} to path {targetPlayerPathIndex}");
+        
         switch (type)
         {
             case PowerUpType.ExtraLife:
-                // Get player stat for target path
+                // Extra life code here
                 PlayerStat playerStat = GameloopManager.GetPlayerStatForPath(targetPlayerPathIndex);
                 if (playerStat != null)
                 {
                     playerStat.IncreaseLives(Mathf.RoundToInt(effectValue));
-                    Debug.Log($"Added {effectValue} lives to player on path {targetPlayerPathIndex}");
                 }
                 break;
-
+                
             case PowerUpType.EnemySpeedDebuff:
-                // Apply speed increase to enemies on target path
-                ApplyEnemyDebuff(targetPlayerPathIndex, true, effectValue, duration);
+                ApplyEnemySpeedDebuff(targetPlayerPathIndex, effectValue, duration);
                 break;
-
+                
             case PowerUpType.EnemyHealthDebuff:
-                // Apply health increase to enemies on target path
-                ApplyEnemyDebuff(targetPlayerPathIndex, false, effectValue, duration);
+                // Health debuff code here 
                 break;
+        }
+    }
+
+    private static void ApplyEnemySpeedDebuff(int targetPathIndex, float effectValue, float duration)
+    {
+        Debug.Log($"Applying speed debuff to enemies on path {targetPathIndex}: {effectValue}% for {duration}s");
+        
+        // Find all enemies
+        Enemy[] allEnemies = Object.FindObjectsOfType<Enemy>();
+        Debug.Log($"Found {allEnemies.Length} total enemies");
+        
+        // Calculate multiplier (convert percentage to multiplier)
+        // Positive effectValue means enemies move faster (like 20 = 20% faster = 1.2x)
+        float speedMultiplier = 1f + (effectValue / 100f);
+        
+        int affectedCount = 0;
+        
+        // Apply to all enemies on the target path
+        foreach (Enemy enemy in allEnemies)
+        {
+            if (enemy == null) continue;
+            
+            if (enemy.PlayerPathIndex == targetPathIndex)
+            {
+                affectedCount++;
+                enemy.ApplySpeedDebuff(speedMultiplier, duration);
+            }
+        }
+        
+        Debug.Log($"Applied speed debuff to {affectedCount} enemies");
+        
+        // Register with enemy spawner for future enemies
+        RegisterDebuffWithSpawners(targetPathIndex, PowerUpType.EnemySpeedDebuff, effectValue, duration);
+    }
+
+    private static void RegisterDebuffWithSpawners(int targetPathIndex, PowerUpType type, float value, float duration)
+    {
+        // Find all enemy spawners
+        var spawners = Object.FindObjectsOfType<Entitysummoner>();
+        
+        foreach (var spawner in spawners)
+        {
+            // Check if this spawner belongs to the target path
+            if (spawner.PlayerPathIndex == targetPathIndex)
+            {
+                // Register the debuff
+                spawner.RegisterDebuff(type, value, duration, Time.time);
+                Debug.Log($"Registered {type} debuff with spawner for path {targetPathIndex}");
+            }
         }
     }
 

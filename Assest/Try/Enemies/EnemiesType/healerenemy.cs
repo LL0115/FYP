@@ -43,6 +43,11 @@ public class HealerEnemy : Enemy
         MaxHealth *= 0.6f; // 60% of normal health
         Health = MaxHealth; // Set current health to match
         
+        if (PhotonNetwork.IsConnected && photonView != null && PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPC_SyncMaxHealth", RpcTarget.Others, MaxHealth);
+        }
+        
         // Reset healing timer
         nextHealTime = Time.time + 1.0f; // Initial delay before first heal
         

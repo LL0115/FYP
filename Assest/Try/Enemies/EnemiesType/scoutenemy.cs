@@ -53,11 +53,17 @@ public class ScoutEnemy : Enemy
         Speed *= 2.0f; // Double speed
         MaxHealth *= 0.6f; // 60% of normal health
         Health = MaxHealth; // Set current health to match
-        
+
         // Scouts deal less damage to the base
         DamageToBase = Mathf.Max(1, DamageToBase - 1); // Reduce by 1, minimum 1
         
-        // Update health bar to reflect new max health
+        // Sync MaxHealth to other clients in multiplayer
+        if (PhotonNetwork.IsConnected && photonView != null && PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPC_SyncMaxHealth", RpcTarget.Others, MaxHealth);
+        }
+        
+        // Update health bar to reflect correct max health
         if (HPBar != null)
         {
             HPBar.UpdateHealthBar(MaxHP, CurrentHP);

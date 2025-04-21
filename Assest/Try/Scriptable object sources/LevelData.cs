@@ -1,29 +1,31 @@
-using UnityEngine;  // Add this - required for ScriptableObject
+using UnityEngine;
 using System.Collections.Generic;
 
 [System.Serializable]
 public class EnemyWaveInfo
 {
-    [SerializeField] 
-    public Enemysummondata enemyData;
-    [SerializeField] 
-    public int count;
-    [SerializeField] 
-    public float spawnInterval = 1f;
+    [SerializeField]
+    public Enemysummondata enemyData; // Enemy type
+    [SerializeField]
+    public int countPath0; // Number of enemies to spawn on path 0
+    [SerializeField]
+    public int countPath1; // Number of enemies to spawn on path 1
+    [SerializeField]
+    public float spawnInterval = 1f; // Time between spawns
 }
 
 [System.Serializable]
 public class WaveData
 {
-    [SerializeField] 
+    [SerializeField]
     public List<EnemyWaveInfo> enemies = new List<EnemyWaveInfo>();
-    [SerializeField] 
-    public float delayAfterWave = 5f;
+    [SerializeField]
+    public float delayAfterWave = 5f; // Delay after wave completes
 }
 
 [CreateAssetMenu(fileName = "New LevelData", menuName = "Create LevelData")]
-public class LevelData : ScriptableObject  // Must inherit from ScriptableObject
+public class LevelData : ScriptableObject
 {
-    [SerializeField] 
+    [SerializeField]
     public List<WaveData> waves = new List<WaveData>();
 }
